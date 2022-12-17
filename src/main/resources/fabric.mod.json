@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "mwcosmetics",
+  "version": "${version}",
+
+  "name": "Bedrock Hider",
+  "description": "Removes the ugly bedrock on CK MissileWars",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "https://encodeous.ca",
+    "sources": "https://github.com/FabricMC/fabric-example-mod"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ca.encodeous.mwcosmetics.MwCosmeticsMod"
+    ]
+  },
+  "mixins": [
+    "mwcosmetics.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "~1.19",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
