@@ -16,4 +16,4 @@
 
 ## Installation.
 
-Just download the jar file from the releases into your **fabric** mods folder. (Currently for 1.19)
+Just download the jar file from the releases into your **fabric** mods folder. (Currently for 1.19.x)
