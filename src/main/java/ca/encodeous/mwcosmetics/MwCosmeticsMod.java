@@ -55,7 +55,7 @@ public class MwCosmeticsMod implements ModInitializer {
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			dispatcher.register(ClientCommandManager.literal("cdl")
 					.executes(context -> {
-						hideBedrock = !hideBedrock;
+						disableLightEngine = !disableLightEngine;
 						context.getSource().sendFeedback(Text.of("The lighting engine is now " + (disableLightEngine ? "disabled." : "enabled.")));
 						return 1;
 					}));
