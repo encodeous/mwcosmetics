@@ -16,6 +16,7 @@ public class ChunkSectionMixin {
 
 	@Inject(at = @At("HEAD"), method = "setBlockState(IIILnet/minecraft/block/BlockState;Z)Lnet/minecraft/block/BlockState;", cancellable = true)
 	public void setBlockState(int x, int y, int z, BlockState state, boolean lock, CallbackInfoReturnable<BlockState> info) {
+		if(!MwCosmeticsMod.isInMw) return;
 		if(!MwCosmeticsMod.hideBedrock) return;
 		int realY = ((ChunkSection)(Object)this).getYOffset();
 		if(realY >= 288){
@@ -26,6 +27,7 @@ public class ChunkSectionMixin {
 
 	@Inject(at = @At("HEAD"), method = "getBlockState(III)Lnet/minecraft/block/BlockState;", cancellable = true)
 	public void getBlockState(int x, int y, int z, CallbackInfoReturnable<BlockState> cir) {
+		if(!MwCosmeticsMod.isInMw) return;
 		if(!MwCosmeticsMod.hideBedrock) return;
 		int realY = ((ChunkSection)(Object)this).getYOffset();
 		if(realY >= 288){
@@ -36,6 +38,7 @@ public class ChunkSectionMixin {
 
 	@Inject(at = @At("HEAD"), method = "fromPacket(Lnet/minecraft/network/PacketByteBuf;)V", cancellable = true)
 	public void fromPacket(PacketByteBuf buf, CallbackInfo ci){
+		if(!MwCosmeticsMod.isInMw) return;
 		if(!MwCosmeticsMod.hideBedrock) return;
 		int realY = ((ChunkSection)(Object)this).getYOffset();
 		if(realY >= 288){

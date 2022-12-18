@@ -1,16 +1,23 @@
 package ca.encodeous.mwcosmetics;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
-
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.PositionImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MwCosmeticsMod implements ModInitializer {
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
+
+public class MwCosmeticsMod implements ClientModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
@@ -19,8 +26,15 @@ public class MwCosmeticsMod implements ModInitializer {
 	public static boolean hideBedrock = true;
 	public static boolean disableLightEngine = true;
 
+	public static boolean isInMw = false;
+	public void checkMw() {
+		isInMw=(MinecraftClient.getInstance().getCurrentServerEntry()!=null &&
+				MinecraftClient.getInstance().getCurrentServerEntry().address.contains("cubekrowd") &&
+				MinecraftClient.getInstance().world != null &&
+				MinecraftClient.getInstance().world.getBlockState(new BlockPos(new PositionImpl(-101, 5, 0))).getBlock() == Blocks.SEA_LANTERN);
+	}
 	@Override
-	public void onInitialize() {
+	public void onInitializeClient() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
@@ -60,5 +74,12 @@ public class MwCosmeticsMod implements ModInitializer {
 						return 1;
 					}));
 		});
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				checkMw();
+			}
+		}, 0, 5000); //check every 5 seconds if we are in mw.
 	}
 }

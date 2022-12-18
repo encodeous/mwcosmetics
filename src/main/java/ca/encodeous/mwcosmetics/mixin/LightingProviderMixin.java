@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LightingProviderMixin {
     @Inject(at = @At("HEAD"), method = "getLight(Lnet/minecraft/util/math/BlockPos;I)I", cancellable = true)
     public void getLight(BlockPos pos, int ambientDarkness, CallbackInfoReturnable<Integer> cir){
+        if(!MwCosmeticsMod.isInMw) return;
         if(MwCosmeticsMod.disableLightEngine && !MinecraftClient.getInstance().isInSingleplayer()) {
             cir.setReturnValue(15);
             cir.cancel();

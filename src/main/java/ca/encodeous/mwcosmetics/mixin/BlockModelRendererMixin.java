@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class BlockModelRendererMixin {
     @ModifyVariable(at = @At("HEAD"), method = "renderQuads(Lnet/minecraft/client/util/math/MatrixStack$Entry;Lnet/minecraft/client/render/VertexConsumer;FFFLjava/util/List;II)V", ordinal = 0, argsOnly = true)
     private static int renderQuads(int light){
+        if(!MwCosmeticsMod.isInMw) return light;
         if(!MwCosmeticsMod.disableLightEngine) return light;
         return 15;
     }

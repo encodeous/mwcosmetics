@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class ChunkLightProviderMixin {
     @Inject(at = @At("HEAD"), method = "getLightLevel(Lnet/minecraft/util/math/BlockPos;)I", cancellable = true)
     public void getLightLevel(BlockPos pos, CallbackInfoReturnable<Integer> cir){
+        if(!MwCosmeticsMod.isInMw) return;
         if(!MwCosmeticsMod.disableLightEngine && !MinecraftClient.getInstance().isInSingleplayer()) return;
         cir.setReturnValue(15);
         cir.cancel();
