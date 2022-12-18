@@ -15,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class WorldRendererMixin {
     @Inject(at = @At("HEAD"), method = "getLightmapCoordinates(Lnet/minecraft/world/BlockRenderView;Lnet/minecraft/block/BlockState;Lnet/minecraft/util/math/BlockPos;)I", cancellable = true)
     private static void getLightmapCoordinates(BlockRenderView world, BlockState state, BlockPos pos, CallbackInfoReturnable<Integer> cir){
+        if(!MwCosmeticsMod.isInMw) return;
         if(MwCosmeticsMod.disableLightEngine){
             cir.setReturnValue(15728880);
             cir.cancel();

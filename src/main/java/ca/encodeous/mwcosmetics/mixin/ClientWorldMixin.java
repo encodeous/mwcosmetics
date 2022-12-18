@@ -11,6 +11,7 @@ public class ClientWorldMixin {
 
     @ModifyVariable(at = @At("HEAD"), method = "setTimeOfDay(J)V", ordinal = 0, argsOnly = true)
     public long setTimeOfDay(long time){
+        if(!MwCosmeticsMod.isInMw) return time;
         if(MwCosmeticsMod.time != -1){
             return MwCosmeticsMod.time;
         }
